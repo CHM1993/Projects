@@ -1,0 +1,7 @@
+AM : 1115201100072
+Onomatepwnimo : Charalambos Iwannis Mitropoulos
+
+
+Se ayti tin askisi egine to diavasma apo to yparxon directory arxeiwn ,opou kathe arxeio adistixei se enan worker kai se ayto to arxeio(oxi binary omws) , vriskoume ta domains diaforwn dieythinsewn. Kathe arxeio to analamvanei kapoios worker p gia ayton kratame kapoia xaraktiristika ,alla kai gia olous tous workers stin domi worker_queue,o listener einai aytos pou kanei anakatheythinsi se oti vgainei aptin inotify wait kai mesa pipe to stelenei adei gia to stdout ston manager.Ola ayta ginode mesa se ena atermno while kai tha teleiwsei mexri o xristis na dwsei sima SIGINT(diladi Ctrl-C) gia na termatisei to programma kai na dialithoun oloi oi workers.
+
+To programma kolaei kai den trexei.
