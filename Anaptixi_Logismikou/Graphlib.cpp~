@@ -1,0 +1,93 @@
+
+//tha bei sto HashTable.cpp
+
+int Clicks(Pinakas_katakermatismou *fo,
+        int *arithmos_anadromis,
+        int forumID,
+        int *stoixio, 
+        int *clickid,
+        int megethos_click,
+        int *clickarray){ //to n einai to megethos tis n-klikas
+                                    //to stoixeio einai to stoixio t pinaka clickarray sto opoio exoume
+                                     //minei stin arxi einai 0
+    Click *click;
+    Node *forumNode;
+    Node *arxikoforumNode;
+    Node *nlg;
+    Node *nextnode;
+    int countmeloi, i, telos, j;
+    
+    forumNode = fo->lookupNode(forumID, fo);
+    arxikoforumNode = forumNode;
+    nextnode = forumNode->getNext();
+
+    while( nextnode !=NULL){
+        clickarray[*stoixio] = nextnode->getID();
+        if(*stoixio == 0){
+           i = Clicks(fo,(arithmos_anadromis+1),forumID, 
+                   (stoixio+1), 
+                   clickid, 
+                   megethos_click,
+                   clickarray);
+        }
+        nlg = fo->lookupNode(nextnode->getID(), fo);
+        telos = 0;
+        while((nlg!=NULL) || telos == 1){
+            for(j=0; j<*stoixio; j++){
+                if(nlg->getID() == clickarray[j]){
+                    telos = telos +1;
+                }
+                nlg= nlg->getNext();
+            }
+        }
+        if(telos == megethos_click-2){
+             clickarray[*stoixio] = nlg->getID();
+             telos =0;
+             if(*arithmos_anadromis < megethos_click-1){
+                //kalese anadromi
+                 i = Clicks(fo,(arithmos_anadromis+1),forumID,
+                         (stoixio+1), 
+                         clickid, 
+                         megethos_click,
+                         clickarray);
+             }
+             if(*arithmos_anadromis == megethos_click-1){
+                 //vrikame clicka
+                 *clickid++;
+                if(click == NULL){
+                    click->id = *clickid;
+                    for(j =0; j<*stoixio; j++){
+                        click->array[j] = clickarray[j]; 
+                    }
+                    click->next = NULL;
+                }
+                else{
+                    while(click->next !=NULL){
+                        click=click->next;
+                    }
+                    click->id = *clickid;
+                    for(j =0; j<*stoixio; j++){
+                        click->array[j] = clickarray[j]; 
+                    }
+                    click->next = NULL;
+                }
+
+            }
+        }
+        else{
+            return 1;
+        }
+        nextnode = nextnode->getNext();
+    }
+}
+//tha boun sto Hashtable.h
+
+int Clicks(Pinakas_katakermatismou*,int*,int, int*, int*,int ,int *);
+
+class Click{
+public:
+    int id;
+    int array[];
+    Click *next;
+};
+
